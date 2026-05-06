@@ -1,0 +1,17 @@
+{
+  "label": "Notre Histoire",
+  "title_part1": "Une passion transmise",
+  "title_part2": "de génération en génération",
+  "paragraphs": [
+    "Depuis 1986, notre boulangerie perpétue les traditions artisanales françaises avec passion et savoir-faire. Chaque matin, dès 4h00, nous pétrissons, façonnons et cuisons à la main pour vous offrir des pains d'exception.",
+    "Nos farines sont sélectionnées auprès de meuniers locaux, nos levains cultivés depuis plus de trente ans. Parce que le bon pain prend du temps, nous en prenons le nôtre."
+  ],
+  "cta_label": "Découvrir nos créations",
+  "image": {
+    "src": "https://images.unsplash.com/photo-1556217477-d325251ece38?auto=format&fit=crop&w=900&q=82",
+    "alt": "Notre boulanger",
+    "focal_x": 50,
+    "focal_y": 50,
+    "zoom": 1
+  }
+}

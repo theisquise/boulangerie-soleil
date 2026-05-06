@@ -1,0 +1,12 @@
+{
+  "eyebrow": "Boulangerie Artisanale · Paris depuis 1986",
+  "title_part1": "L'art du pain,",
+  "title_part2": "fait avec âme",
+  "image": {
+    "src": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1600&q=82",
+    "alt": "Pains artisanaux",
+    "focal_x": 50,
+    "focal_y": 25,
+    "zoom": 1
+  }
+}

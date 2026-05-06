@@ -1,0 +1,20 @@
+{
+  "creations": {
+    "label": "Nos Spécialités",
+    "title_part1": "Nos",
+    "title_part2": "Créations"
+  },
+  "formations": {
+    "label": "Apprendre Avec Nous",
+    "title_part1": "Nos",
+    "title_part2": "Formations",
+    "intro": "Du curieux au professionnel : initiez-vous ou perfectionnez votre art du pain dans notre fournil."
+  },
+  "contact_intro": {
+    "label": "Nous Trouver",
+    "title_part1": "Venez nous",
+    "title_part2": "rendre visite",
+    "form_title_part1": "Envoyez-nous",
+    "form_title_part2": "un message"
+  }
+}

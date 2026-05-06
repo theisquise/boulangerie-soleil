@@ -1,0 +1,36 @@
+{
+  "name": "Soleil",
+  "tagline": "Boulangerie Artisanale",
+  "title": "Soleil — Boulangerie Artisanale",
+  "description": "Boulangerie artisanale à Paris depuis 1986. Pains au levain, viennoiseries, brioches faites à la main.",
+  "url": "https://www.boulangerie-alex.com",
+  "nav": [
+    { "label": "Accueil", "section": "s1" },
+    { "label": "À Propos", "section": "s2" },
+    { "label": "Nos Créations", "section": "s3" },
+    { "label": "Formations", "section": "s4" },
+    { "label": "Contact", "section": "s5" }
+  ],
+  "social": {
+    "facebook": "",
+    "instagram": "",
+    "pinterest": ""
+  },
+  "contact": {
+    "address_line1": "24 Rue du Faubourg Saint-Antoine",
+    "address_line2": "75011 Paris, France",
+    "phone": "+33 1 42 00 00 00",
+    "email": "bonjour@soleil-boulangerie.fr"
+  },
+  "hours": [
+    { "label": "Lun – Ven", "value": "7h00 – 19h30" },
+    { "label": "Sam & Dim", "value": "7h00 – 14h00" }
+  ],
+  "contact_subjects": [
+    "Commande spéciale",
+    "Renseignements",
+    "Inscription formation",
+    "Partenariat",
+    "Autre"
+  ]
+}

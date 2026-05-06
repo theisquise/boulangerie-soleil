@@ -1,0 +1,258 @@
+---
+layout: layouts/base.njk
+permalink: /index.html
+---
+{% from "macros/img.njk" import framed %}
+{% set activePromos = promos | activePromos %}
+
+<!-- HEADER -->
+<header>
+  <div class="logo-wrap">
+    <svg id="logo-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="60" cy="60" r="32" fill="none" stroke="#c4603c" stroke-width=".6" opacity=".45"/>
+      <text x="60" y="55.5" font-family="Raleway,sans-serif" font-size="10.5" font-weight="600" fill="#3a1f0d" text-anchor="middle" letter-spacing="3.5">{{ site.name | upper }}</text>
+      <line x1="43" y1="60.5" x2="77" y2="60.5" stroke="#c4603c" stroke-width=".8"/>
+      <text x="60" y="71" font-family="Raleway,sans-serif" font-size="6.2" font-weight="300" fill="#3a1f0d" text-anchor="middle" letter-spacing="2">BOULANGERIE</text>
+    </svg>
+  </div>
+  <nav>
+    <ul class="nav-links" id="navLinks">
+      {% for item in site.nav %}
+      <li><a href="#{{ item.section }}" data-i="{{ loop.index0 }}"{% if loop.first %} class="active"{% endif %}>{{ item.label }}</a></li>
+      {% endfor %}
+    </ul>
+    <div class="nav-social">
+      {% if site.social.facebook %}<a href="{{ site.social.facebook }}" aria-label="Facebook" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>{% endif %}
+      {% if site.social.instagram %}<a href="{{ site.social.instagram }}" aria-label="Instagram" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>{% endif %}
+      {% if site.social.pinterest %}<a href="{{ site.social.pinterest }}" aria-label="Pinterest" target="_blank" rel="noopener"><i class="fab fa-pinterest-p"></i></a>{% endif %}
+    </div>
+  </nav>
+</header>
+
+<!-- DOTS -->
+<div class="dots" id="dots">
+  {% for item in site.nav %}
+  <button class="dot{% if loop.first %} on{% endif %}" data-t="{{ loop.index0 }}" aria-label="{{ item.label }}"></button>
+  {% endfor %}
+</div>
+
+<!-- FLOAT CTA -->
+<a href="#s5" id="btn-contact">
+  <i class="far fa-comment-dots"></i>
+  <span>Contactez-nous</span>
+</a>
+
+<div class="fp" id="fp">
+
+  <!-- §1 ACCUEIL -->
+  <section id="s1">
+    <div class="hero-bg">{{ framed(hero.image, 'framed-img') }}</div>
+    <div class="hero-text">
+      <span class="eyebrow">{{ hero.eyebrow }}</span>
+      <h1 class="hero-h1">{{ hero.title_part1 }}<br><em>{{ hero.title_part2 }}</em></h1>
+    </div>
+    <button class="scroll-hint" id="scrollHint" type="button" onclick="go(1)">
+      <span>Défiler</span>
+      <i class="fas fa-chevron-down"></i>
+    </button>
+  </section>
+
+  <!-- §2 À PROPOS -->
+  <section id="s2">
+    <div class="ap-img">{{ framed(about.image, 'framed-img') }}</div>
+    <div class="ap-text">
+      <p class="s-label">{{ about.label }}</p>
+      <div class="rule"></div>
+      <h2 class="s-h2">{{ about.title_part1 }}<br><em>{{ about.title_part2 }}</em></h2>
+      {% for p in about.paragraphs %}<p class="body-p">{{ p }}</p>{% endfor %}
+      <button class="btn-outline" onclick="go(2)" type="button">
+        {{ about.cta_label }}&nbsp;<i class="fas fa-arrow-right" style="font-size:9px"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- §3 CRÉATIONS -->
+  <section id="s3">
+    <div class="s3-head">
+      <p class="s-label">{{ sections.creations.label }}</p>
+      <h2 class="s-h2">{{ sections.creations.title_part1 }} <em>{{ sections.creations.title_part2 }}</em></h2>
+    </div>
+    <div class="grid">
+      {% for product in collections.products %}
+      {% set d = product.data %}
+      {% set promo = none %}
+      {% for p in activePromos %}{% if p.product_slug == product.fileSlug %}{% set promo = p %}{% endif %}{% endfor %}
+      <div class="card">
+        {% if not d.in_stock %}<span class="tag-out">Rupture</span>{% endif %}
+        <div class="card-img-wrap">{{ framed(d.image, 'card-img') }}</div>
+        <div class="card-body">
+          <h3 class="card-name">{{ d.name }}</h3>
+          <p class="card-desc">{{ d.description }}</p>
+          <div class="card-foot">
+            <span>
+              {% if promo %}
+                <span class="card-price has-promo">{{ d.price }}</span>
+                <span class="card-price-promo">{{ promo.new_price }}</span>
+              {% else %}
+                <span class="card-price">{{ d.price }}</span>
+              {% endif %}
+            </span>
+            {% if promo %}<span class="badge">-{{ promo.discount_percent }}%</span>
+            {% elif d.badge %}<span class="badge">{{ d.badge }}</span>{% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- §4 FORMATIONS -->
+  <section id="s4">
+    <div class="s4-head">
+      <p class="s-label">{{ sections.formations.label }}</p>
+      <h2 class="s-h2">{{ sections.formations.title_part1 }} <em>{{ sections.formations.title_part2 }}</em></h2>
+      <p>{{ sections.formations.intro }}</p>
+    </div>
+    <div class="formations-grid">
+      {% for formation in collections.formations %}
+      {% set d = formation.data %}
+      <article class="f-card">
+        <div class="f-card-img-wrap">{{ framed(d.image, 'card-img') }}</div>
+        <div class="f-card-body">
+          <div class="f-tags">
+            <span class="f-tag lvl-{{ d.level }}">{{ d.level | replace('intermediaire', 'Intermédiaire') | replace('debutant', 'Débutant') | replace('avance', 'Avancé') | replace('pro', 'Professionnel') }}</span>
+            <span class="f-tag">{{ d.audience | replace('curieux', 'Curieux') | replace('professionnel', 'Pro') | replace('tous', 'Tous publics') }}</span>
+          </div>
+          <h3 class="f-name">{{ d.title }}</h3>
+          <p class="f-desc">{{ d.short_description }}</p>
+          <div class="f-meta">
+            <span><i class="far fa-clock"></i>{{ d.duration }}</span>
+            <span><i class="fas fa-users"></i>{{ d.max_participants }} pers. max</span>
+          </div>
+          <div class="f-foot">
+            <span class="f-price">{{ d.price }}</span>
+            {% if d.next_date %}<span class="f-date">Prochaine: {{ d.next_date }}</span>{% endif %}
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- §5 CONTACT -->
+  <section id="s5">
+    <div class="ct-left">
+      <p class="s-label">{{ sections.contact_intro.label }}</p>
+      <div class="rule" style="background:var(--terra-light)"></div>
+      <h2 class="s-h2">{{ sections.contact_intro.title_part1 }}<br><em>{{ sections.contact_intro.title_part2 }}</em></h2>
+
+      <div class="ct-item">
+        <div class="ct-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <div class="ct-info"><strong>Adresse</strong>{{ site.contact.address_line1 }}<br>{{ site.contact.address_line2 }}</div>
+      </div>
+      <div class="ct-item">
+        <div class="ct-icon"><i class="fas fa-clock"></i></div>
+        <div class="ct-info"><strong>Horaires</strong>{% for h in site.hours %}{{ h.label }} : {{ h.value }}{% if not loop.last %}<br>{% endif %}{% endfor %}</div>
+      </div>
+      <div class="ct-item">
+        <div class="ct-icon"><i class="fas fa-phone"></i></div>
+        <div class="ct-info"><strong>Téléphone</strong>{{ site.contact.phone }}</div>
+      </div>
+      <div class="ct-item">
+        <div class="ct-icon"><i class="fas fa-envelope"></i></div>
+        <div class="ct-info"><strong>Email</strong>{{ site.contact.email }}</div>
+      </div>
+    </div>
+
+    <div class="ct-right">
+      <h3>{{ sections.contact_intro.form_title_part1 }}<br>{{ sections.contact_intro.form_title_part2 }}</h3>
+      <form id="form" novalidate>
+        <div class="form-row">
+          <div class="fg"><label>Prénom</label><input type="text" placeholder="Marie" required></div>
+          <div class="fg"><label>Nom</label><input type="text" placeholder="Dupont" required></div>
+        </div>
+        <div class="fg"><label>Email</label><input type="email" placeholder="marie@exemple.fr" required></div>
+        <div class="fg">
+          <label>Sujet</label>
+          <select>
+            <option value="">Choisissez un sujet</option>
+            {% for s in site.contact_subjects %}<option>{{ s }}</option>{% endfor %}
+          </select>
+        </div>
+        <div class="fg"><label>Message</label><textarea placeholder="Votre message…" required></textarea></div>
+        <div class="form-foot">
+          <button type="submit" class="btn-send">Envoyer</button>
+          <span id="ok">✓ Message envoyé, merci !</span>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById('logo-svg');
+  const ns  = 'http://www.w3.org/2000/svg';
+  const cx = 60, cy = 60, N = 52;
+  for (let i = 0; i < N; i++) {
+    const a  = (i / N) * 2 * Math.PI - Math.PI / 2;
+    const big = i % 4 === 0;
+    const r1 = 38, r2 = big ? 47 : 44;
+    const ln = document.createElementNS(ns, 'line');
+    ln.setAttribute('x1', (cx + r1 * Math.cos(a)).toFixed(2));
+    ln.setAttribute('y1', (cy + r1 * Math.sin(a)).toFixed(2));
+    ln.setAttribute('x2', (cx + r2 * Math.cos(a)).toFixed(2));
+    ln.setAttribute('y2', (cy + r2 * Math.sin(a)).toFixed(2));
+    ln.setAttribute('stroke', '#c4603c');
+    ln.setAttribute('stroke-width', big ? '1.4' : '0.65');
+    svg.insertBefore(ln, svg.firstChild);
+  }
+})();
+
+const fp    = document.getElementById('fp');
+const dots  = Array.from(document.querySelectorAll('.dot'));
+const links = Array.from(document.querySelectorAll('#navLinks a'));
+const hint  = document.getElementById('scrollHint');
+let cur = 0, busy = false;
+const total = dots.length;
+
+function setActive(i) {
+  cur = i;
+  dots.forEach((d,j)  => d.classList.toggle('on', j===i));
+  links.forEach((a,j) => a.classList.toggle('active', j===i));
+  if (hint) hint.style.opacity = i === 0 ? '' : '0';
+}
+
+function go(i) {
+  if (i < 0 || i > total - 1) return;
+  busy = true;
+  fp.scrollTo({ top: i * window.innerHeight, behavior: 'smooth' });
+  setActive(i);
+  setTimeout(() => busy = false, 900);
+}
+window.go = go;
+
+dots.forEach(d  => d.addEventListener('click', () => go(+d.dataset.t)));
+links.forEach((a,i) => a.addEventListener('click', e => { e.preventDefault(); go(i); }));
+document.getElementById('btn-contact').addEventListener('click', e => { e.preventDefault(); go(total - 1); });
+
+fp.addEventListener('scroll', () => {
+  if (busy) return;
+  const i = Math.round(fp.scrollTop / window.innerHeight);
+  if (i !== cur) setActive(i);
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); go(Math.min(cur+1, total - 1)); }
+  if (e.key === 'ArrowUp'   || e.key === 'PageUp')   { e.preventDefault(); go(Math.max(cur-1,0)); }
+});
+
+document.getElementById('form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const ok = document.getElementById('ok');
+  ok.style.display = 'inline';
+  this.reset();
+  setTimeout(() => ok.style.display = 'none', 5000);
+});
+</script>

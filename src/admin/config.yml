@@ -1,0 +1,245 @@
+backend:
+  name: github
+  repo: theisquise/boulangerie-soleil
+  branch: main
+  base_url: https://www.boulangerie-alex.com
+  auth_endpoint: /api/auth
+
+publish_mode: simple
+media_folder: src/uploads
+public_folder: /uploads
+
+locale: fr
+
+site_url: https://www.boulangerie-alex.com
+display_url: https://www.boulangerie-alex.com
+logo_url: https://www.boulangerie-alex.com/assets/css/style.css
+
+collections:
+
+  # ─────── Pages (textes globaux) ───────
+  - name: pages
+    label: "Pages & textes"
+    files:
+      - file: src/_data/site.json
+        label: "Réglages généraux du site"
+        name: site
+        fields:
+          - { label: "Nom de la boulangerie", name: name, widget: string }
+          - { label: "Tagline (sous-titre)", name: tagline, widget: string }
+          - { label: "Titre de l'onglet navigateur", name: title, widget: string }
+          - { label: "Description (SEO)", name: description, widget: text }
+          - { label: "URL du site", name: url, widget: string }
+          - label: "Menu de navigation"
+            name: nav
+            widget: list
+            fields:
+              - { label: "Libellé", name: label, widget: string }
+              - { label: "ID de section (s1/s2/s3/s4/s5)", name: section, widget: string }
+          - label: "Réseaux sociaux"
+            name: social
+            widget: object
+            fields:
+              - { label: "URL Facebook", name: facebook, widget: string, required: false }
+              - { label: "URL Instagram", name: instagram, widget: string, required: false }
+              - { label: "URL Pinterest", name: pinterest, widget: string, required: false }
+          - label: "Coordonnées"
+            name: contact
+            widget: object
+            fields:
+              - { label: "Adresse - ligne 1", name: address_line1, widget: string }
+              - { label: "Adresse - ligne 2", name: address_line2, widget: string }
+              - { label: "Téléphone", name: phone, widget: string }
+              - { label: "Email", name: email, widget: string }
+          - label: "Horaires d'ouverture"
+            name: hours
+            widget: list
+            fields:
+              - { label: "Jours", name: label, widget: string, hint: "ex : Lun – Ven" }
+              - { label: "Horaires", name: value, widget: string, hint: "ex : 7h00 – 19h30" }
+          - label: "Sujets du formulaire de contact"
+            name: contact_subjects
+            widget: list
+            field: { label: Sujet, name: subject, widget: string }
+
+      - file: src/_data/hero.json
+        label: "§1 — Section Accueil (Hero)"
+        name: hero
+        fields:
+          - { label: "Eyebrow (petit texte au-dessus du titre)", name: eyebrow, widget: string }
+          - { label: "Titre — partie 1", name: title_part1, widget: string }
+          - { label: "Titre — partie 2 (en italique orange)", name: title_part2, widget: string }
+          - label: "Image de fond"
+            name: image
+            widget: object
+            fields:
+              - { label: "Photo", name: src, widget: image }
+              - { label: "Texte alternatif (accessibilité)", name: alt, widget: string }
+              - { label: "Position horizontale (%)", name: focal_x, widget: number, default: 50, min: 0, max: 100, value_type: int, hint: "0 = à gauche, 50 = centré, 100 = à droite" }
+              - { label: "Position verticale (%)", name: focal_y, widget: number, default: 25, min: 0, max: 100, value_type: int, hint: "0 = en haut, 50 = milieu, 100 = en bas" }
+              - { label: "Zoom", name: zoom, widget: number, default: 1, min: 1, max: 3, step: 0.1, hint: "1 = pas de zoom, 1.5 = zoom 150%" }
+
+      - file: src/_data/about.json
+        label: "§2 — Section À Propos"
+        name: about
+        fields:
+          - { label: "Label (au-dessus du titre)", name: label, widget: string }
+          - { label: "Titre — partie 1", name: title_part1, widget: string }
+          - { label: "Titre — partie 2 (en italique orange)", name: title_part2, widget: string }
+          - label: "Paragraphes"
+            name: paragraphs
+            widget: list
+            field: { label: Paragraphe, name: text, widget: text }
+          - { label: "Texte du bouton", name: cta_label, widget: string }
+          - label: "Photo"
+            name: image
+            widget: object
+            fields:
+              - { label: "Photo", name: src, widget: image }
+              - { label: "Texte alternatif", name: alt, widget: string }
+              - { label: "Position horizontale (%)", name: focal_x, widget: number, default: 50, min: 0, max: 100, value_type: int }
+              - { label: "Position verticale (%)", name: focal_y, widget: number, default: 50, min: 0, max: 100, value_type: int }
+              - { label: "Zoom", name: zoom, widget: number, default: 1, min: 1, max: 3, step: 0.1 }
+
+      - file: src/_data/sections.json
+        label: "Titres des sections (Créations / Formations / Contact)"
+        name: sections
+        fields:
+          - label: "Section Créations — entête"
+            name: creations
+            widget: object
+            fields:
+              - { label: "Label", name: label, widget: string }
+              - { label: "Titre - partie 1", name: title_part1, widget: string }
+              - { label: "Titre - partie 2 (italique orange)", name: title_part2, widget: string }
+          - label: "Section Formations — entête"
+            name: formations
+            widget: object
+            fields:
+              - { label: "Label", name: label, widget: string }
+              - { label: "Titre - partie 1", name: title_part1, widget: string }
+              - { label: "Titre - partie 2 (italique orange)", name: title_part2, widget: string }
+              - { label: "Description courte", name: intro, widget: text }
+          - label: "Section Contact — entête"
+            name: contact_intro
+            widget: object
+            fields:
+              - { label: "Label", name: label, widget: string }
+              - { label: "Titre - partie 1", name: title_part1, widget: string }
+              - { label: "Titre - partie 2 (italique orange)", name: title_part2, widget: string }
+              - { label: "Titre du formulaire - partie 1", name: form_title_part1, widget: string }
+              - { label: "Titre du formulaire - partie 2", name: form_title_part2, widget: string }
+
+      - file: src/_data/banner.json
+        label: "Bandeau d'info temporaire (haut du site)"
+        name: banner
+        fields:
+          - { label: "Activer le bandeau", name: active, widget: boolean, default: false }
+          - { label: "Message", name: message, widget: string, required: false }
+          - { label: "Texte du lien (facultatif)", name: link_label, widget: string, required: false }
+          - { label: "URL du lien (facultatif)", name: link_url, widget: string, required: false }
+
+  # ─────── Produits ───────
+  - name: products
+    label: "Produits / Créations"
+    label_singular: "Produit"
+    folder: src/products
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    sortable_fields: [order, name, price]
+    fields:
+      - { label: "Ordre d'affichage", name: order, widget: number, default: 99, value_type: int }
+      - { label: "Nom du produit", name: name, widget: string }
+      - { label: "Description", name: description, widget: text }
+      - { label: "Prix", name: price, widget: string, hint: "ex : 4,50 €" }
+      - label: "Catégorie"
+        name: category
+        widget: select
+        default: pains
+        options:
+          - { label: Pains, value: pains }
+          - { label: Viennoiseries, value: viennoiseries }
+          - { label: Pâtisseries, value: patisseries }
+          - { label: Autre, value: autre }
+      - { label: "Badge (Signature, Bestseller, Nouveau...)", name: badge, widget: string, required: false }
+      - { label: "En stock", name: in_stock, widget: boolean, default: true }
+      - label: "Allergènes"
+        name: allergens
+        widget: list
+        required: false
+        field: { label: Allergène, name: a, widget: string }
+      - label: "Photo"
+        name: image
+        widget: object
+        fields:
+          - { label: "Photo", name: src, widget: image }
+          - { label: "Texte alternatif", name: alt, widget: string }
+          - { label: "Position horizontale (%)", name: focal_x, widget: number, default: 50, min: 0, max: 100, value_type: int }
+          - { label: "Position verticale (%)", name: focal_y, widget: number, default: 50, min: 0, max: 100, value_type: int }
+          - { label: "Zoom", name: zoom, widget: number, default: 1, min: 1, max: 3, step: 0.1 }
+      - { label: "Notes internes (non publié)", name: body, widget: markdown, required: false }
+
+  # ─────── Formations ───────
+  - name: formations
+    label: "Formations"
+    label_singular: "Formation"
+    folder: src/formations
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    sortable_fields: [order, title, next_date]
+    fields:
+      - { label: "Ordre d'affichage", name: order, widget: number, default: 99, value_type: int }
+      - { label: "Titre de la formation", name: title, widget: string }
+      - { label: "Description courte", name: short_description, widget: text }
+      - label: "Niveau"
+        name: level
+        widget: select
+        default: debutant
+        options:
+          - { label: "Débutant", value: debutant }
+          - { label: "Intermédiaire", value: intermediaire }
+          - { label: "Avancé", value: avance }
+          - { label: "Professionnel", value: pro }
+      - label: "Public visé"
+        name: audience
+        widget: select
+        default: tous
+        options:
+          - { label: "Curieux / amateur", value: curieux }
+          - { label: "Professionnel", value: professionnel }
+          - { label: "Tous publics", value: tous }
+      - { label: "Durée", name: duration, widget: string, hint: "ex : 1 jour (7h)" }
+      - { label: "Prix", name: price, widget: string, hint: "ex : 120 €" }
+      - { label: "Prochaine date", name: next_date, widget: date, format: "YYYY-MM-DD", required: false }
+      - { label: "Nombre maximum de participants", name: max_participants, widget: number, default: 6, value_type: int }
+      - label: "Photo"
+        name: image
+        widget: object
+        fields:
+          - { label: "Photo", name: src, widget: image }
+          - { label: "Texte alternatif", name: alt, widget: string }
+          - { label: "Position horizontale (%)", name: focal_x, widget: number, default: 50, min: 0, max: 100, value_type: int }
+          - { label: "Position verticale (%)", name: focal_y, widget: number, default: 50, min: 0, max: 100, value_type: int }
+          - { label: "Zoom", name: zoom, widget: number, default: 1, min: 1, max: 3, step: 0.1 }
+      - { label: "Description longue (programme détaillé)", name: body, widget: markdown, required: false }
+
+  # ─────── Promotions ───────
+  - name: promos
+    label: "Promotions / Réductions"
+    files:
+      - file: src/_data/promos.json
+        label: "Liste des promotions"
+        name: promos
+        fields:
+          - label: "Promotions"
+            name: promos
+            widget: list
+            fields:
+              - { label: "Activer cette promo", name: active, widget: boolean, default: true }
+              - { label: "Slug du produit concerné", name: product_slug, widget: string, hint: "ex : pain-au-levain (le nom du fichier sans .md)" }
+              - { label: "Nouveau prix", name: new_price, widget: string, hint: "ex : 3,80 €" }
+              - { label: "Pourcentage de réduction", name: discount_percent, widget: number, default: 10, min: 1, max: 90, value_type: int }
+              - { label: "Date de début (facultatif)", name: start, widget: datetime, required: false }
+              - { label: "Date de fin (facultatif)", name: end, widget: datetime, required: false }

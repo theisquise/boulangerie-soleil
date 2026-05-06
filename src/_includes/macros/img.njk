@@ -1,0 +1,4 @@
+{% macro framed(image, className) %}
+<img class="{{ className or 'framed-img' }}" src="{{ image.src }}" alt="{{ image.alt or '' }}"
+     style="object-position: {{ image.focal_x | default(50) }}% {{ image.focal_y | default(50) }}%; transform: scale({{ image.zoom | default(1) }}); transform-origin: {{ image.focal_x | default(50) }}% {{ image.focal_y | default(50) }}%;">
+{% endmacro %}

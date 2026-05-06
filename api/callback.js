@@ -69,16 +69,26 @@ export default async function handler(req, res) {
 <p>Connexion en cours…</p>
 <script>
 (function(){
+  var provider = 'github';
   var data = ${JSON.stringify(payload)};
-  function send() {
-    if (!window.opener) return;
-    window.opener.postMessage('authorization:github:success:' + JSON.stringify(data), '*');
+  function post(msg) { if (window.opener) window.opener.postMessage(msg, '*'); }
+  function onMessage(e) {
+    if (e.data === 'authorizing:' + provider) {
+      window.removeEventListener('message', onMessage);
+      post('authorization:' + provider + ':success:' + JSON.stringify(data));
+      setTimeout(function(){ try { window.close(); } catch(e){} }, 600);
+    }
   }
-  window.addEventListener('message', function(e) {
-    if (e.data === 'authorizing:github') send();
-  }, false);
-  send();
-  setTimeout(function(){ try { window.close(); } catch(e){} }, 1000);
+  window.addEventListener('message', onMessage, false);
+  // Tell the parent we are ready; parent will echo back.
+  post('authorizing:' + provider);
+  // Fallback: keep poking parent in case it wasn't listening yet
+  var tries = 0;
+  var iv = setInterval(function(){
+    tries++;
+    post('authorizing:' + provider);
+    if (tries > 8) clearInterval(iv);
+  }, 250);
 })();
 </script>
 </body></html>`);

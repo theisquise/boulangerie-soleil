@@ -6,9 +6,15 @@
   <title>Soleil — Espace administration</title>
 </head>
 <body>
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script src="https://unpkg.com/decap-cms@3.8.4/dist/decap-cms.js"></script>
   <script>
-    // Custom preview disabled for now; default UI is fine.
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on('init', user => {
+        if (!user) {
+          window.netlifyIdentity.on('login', () => { document.location.href = '/admin/'; });
+        }
+      });
+    }
   </script>
 </body>
 </html>

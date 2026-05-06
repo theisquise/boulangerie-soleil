@@ -3,7 +3,7 @@ backend:
   repo: theisquise/boulangerie-soleil
   branch: main
   base_url: https://www.boulangerie-alex.com
-  auth_endpoint: /api/auth
+  auth_endpoint: api/auth
 
 publish_mode: simple
 media_folder: src/uploads
